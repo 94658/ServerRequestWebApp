@@ -1,0 +1,70 @@
+﻿@model ServerRequestWebApp.Controllers.LoginViewModel
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>Login</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Log in" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>*@
+
+
+
+
+<div class="jumbotron">
+    <h1>Online Portal</h1>
+    <p class="lead">This site is only accessible to Craft Silicon Personnel registered to the domain</p>
+    <p>
+       
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Access Server Access Forms</h2>
+        <p>
+            This page is restricted to users in role "Users" in the domain.
+        </p>
+        <p>@Html.ActionLink("Server Access Forms", "OnlyForUsers", "Home", new { @class = "btn btn-default" })</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Change Request Forms</h2>
+        <p>To access change request forms</p>
+        <p>@Html.ActionLink("Change Request Forms", "ForNonExistingRole", "Home", new { @class = "btn btn-default" })</p>
+    </div>
+    <div class="col-md-4">
+        <h2>My Account</h2>
+        <p>Here is the list of resulting claims on the cookie.</p>
+        <p>@Html.ActionLink("My Account", "MyClaims", "Home", new { @class = "btn btn-default" })</p>
+    </div>
+</div>
