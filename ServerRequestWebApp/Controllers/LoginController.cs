@@ -36,6 +36,8 @@ namespace ServerRequestWebApp.Controllers
             if (authenticationResult.IsSuccess)
             {
                 // we are in
+                //check if UserInfo is updated
+                //ApplicationDbContext db = new ApplicationDbContext(); 
                 return RedirectToLocal(returnUrl);
             }
 

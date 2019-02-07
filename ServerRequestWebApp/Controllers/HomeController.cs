@@ -28,6 +28,7 @@ namespace ServerRequestWebApp.Controllers
         [Authorize]
         public ActionResult MyClaims()
         {
+            ViewBag.Test = User.Identity.Name;
             return View();
         }
     }
