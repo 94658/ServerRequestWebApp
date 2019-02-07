@@ -39,35 +39,39 @@
 </div>*@
 
 
+<div>
 
-
-<div class="jumbotron">
-    <h1>Welcome @ViewBag.username</h1>
-    <p class="lead">This site is only accessible to  Personnel registered to the domain</p>
-    <p>
-       
-    </p>
 </div>
-
-@if (User.Identity.IsAuthenticated)
-{
-<div class="row">
-    <div class="col-md-4">
-        <h2>Access Server Access Forms</h2>
+<div class="container-fluid">
+    <div class="jumbotron">
+        <h1>Welcome @ViewBag.username</h1>
+        <p class="lead">This site is only accessible to  Personnel registered to the domain</p>
         <p>
-            This page is restricted to users in role "Users" in the domain.
+
         </p>
-        <p>@Html.ActionLink("Server Access Forms", "OnlyForUsers", "Home", new { @class = "btn btn-default" })</p>
-    </div>
-    <div class="col-md-4">
-        <h2>Change Request Forms</h2>
-        <p>To access change request forms</p>
-        <p>@Html.ActionLink("Change Request Forms", "ForNonExistingRole", "Home", new { @class = "btn btn-default" })</p>
-    </div>
-    <div class="col-md-4">
-        <h2>My Account</h2>
-        <p>Here is the list of resulting claims on the cookie.</p>
-        <p>@Html.ActionLink("My Account", "MyClaims", "Home", new { @class = "btn btn-default" })</p>
     </div>
 </div>
-}
+
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Access Server Access Forms</h2>
+                <p>
+                    This page is restricted to users in role "Users" in the domain.
+                </p>
+                <p>@Html.ActionLink("Server Access Forms", "OnlyForUsers", "Home", new { @class = "btn btn-default" })</p>
+            </div>
+            <div class="col-md-4">
+                <h2>Change Request Forms</h2>
+                <p>To access change request forms</p>
+                <p>@Html.ActionLink("Change Request Forms", "ForNonExistingRole", "Home", new { @class = "btn btn-default" })</p>
+            </div>
+            <div class="col-md-4">
+                <h2>My Account</h2>
+                <p>Here is the list of resulting claims on the cookie.</p>
+                <p>@Html.ActionLink("My Account", "MyClaims", "Home", new { @class = "btn btn-default" })</p>
+            </div>
+        </div>
+    }
