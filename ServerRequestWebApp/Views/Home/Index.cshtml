@@ -42,13 +42,15 @@
 
 
 <div class="jumbotron">
-    <h1>Online Portal</h1>
+    <h1>Welcome @ViewBag.username</h1>
     <p class="lead">This site is only accessible to  Personnel registered to the domain</p>
     <p>
        
     </p>
 </div>
 
+@if (User.Identity.IsAuthenticated)
+{
 <div class="row">
     <div class="col-md-4">
         <h2>Access Server Access Forms</h2>
@@ -68,3 +70,4 @@
         <p>@Html.ActionLink("My Account", "MyClaims", "Home", new { @class = "btn btn-default" })</p>
     </div>
 </div>
+}

@@ -38,6 +38,7 @@ namespace ServerRequestWebApp.Controllers
                 // we are in
                 //check if UserInfo is updated
                 //ApplicationDbContext db = new ApplicationDbContext(); 
+                
                 return RedirectToLocal(returnUrl);
             }
 
@@ -51,6 +52,7 @@ namespace ServerRequestWebApp.Controllers
             {
                 return Redirect(returnUrl);
             }
+            //ViewBag.userName = @User.Identity.Name;
             return RedirectToAction("Index", "Home");
         }
 
