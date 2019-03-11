@@ -1,0 +1,70 @@
+﻿@model ServerRequestWebApp.Models.UserProfileModel
+@{
+    ViewBag.Title = "Register";
+    //Model.UserName = ViewBag.UserName;
+    //Layout ="~/Views/Shared/_RegisterLayout.cshtml";
+}
+
+<h2>Register</h2>
+
+@using (Html.BeginForm("Register", "Login", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Save your Details here.</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+   
+    <div class="form-group">
+         <div class="col-md-2">
+             </div>
+        <div class="col-md-10">
+            Welcome &nbsp;<b> @ViewBag.username</b> 
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                @*@Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Select Department", "Department", htmlAttributes: new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownList("Department", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Gender,new { @class = "col-md-2 control-label"})
+            <div class="col-md-10">
+                <div class="Gender">
+                  <label>  @Html.RadioButtonFor(m => m.Gender, "Male") Male</label>
+                  <label>@Html.RadioButtonFor(m => m.Gender, "Female") Female</label>
+                </div>
+            </div>
+         </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit details" class="btn btn-default" />
+            </div>
+        </div>
+
+
+
+        @*<div class="form-group">
+            @Html.LabelFor(m => m.Department, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Department, new { @class = "form-control" })
+            </div>
+        </div>*@
+
+        }

@@ -1,0 +1,11 @@
+﻿@{
+    ServerRequestWebApp.Models.ApplicationDbContext db = new ServerRequestWebApp.Models.ApplicationDbContext();
+    if (db.UserProfile.Where(m => m.UserName == User.Identity.Name).FirstOrDefault().Gender == "Female")
+    {
+        <img src="~/dashboard_config/dist/img/female_avatar.jpg" style="width:35px;height:30px;" class="img-circle" alt="User Image">
+    }
+    else
+    {
+        <img src="~/dashboard_config/dist/img/male_avatar.png" style="width:35px;height:30px;" class="img-circle" alt="User Image">
+    }
+}

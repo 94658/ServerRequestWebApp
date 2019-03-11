@@ -10,6 +10,9 @@ namespace ServerRequestWebApp.Models
 {
     public class AdAuthenticationService
     {
+        public string authUser;
+        private string[] adMembergroups = null;
+        public bool admin = false;
         public class AuthenticationResult
         {
             public AuthenticationResult(string errorMessage = null)
@@ -18,7 +21,7 @@ namespace ServerRequestWebApp.Models
             }
 
             public string ErrorMessage { get; private set; }
-            public Boolean IsSuccess => String.IsNullOrEmpty(ErrorMessage);
+            public Boolean IsSuccess => string.IsNullOrEmpty(ErrorMessage);
         }
 
 
@@ -31,7 +34,7 @@ namespace ServerRequestWebApp.Models
 
         }
 
-        public AuthenticationResult SignIn(String username,String password)
+        public AuthenticationResult SignIn(String username, String password)
         {
 #if DEBUG
             // authenticates against your local machine - for development time
@@ -41,8 +44,11 @@ namespace ServerRequestWebApp.Models
             // authenticates against your Domain AD
             ContextType authenticationType = ContextType.Machine;
 #endif
-
-            PrincipalContext principalContext = new PrincipalContext(authenticationType);
+            try
+            {
+                PrincipalContext principalContext = new PrincipalContext(authenticationType, "CRAFTSILICON.LOCAL");
+           
+          
             bool isAuthenticated = false;
             UserPrincipal userPrincipal = null;
             try
@@ -55,7 +61,7 @@ namespace ServerRequestWebApp.Models
             }
             catch (Exception exception)
             {
-                
+
                 return new AuthenticationResult("Username or Password is not correct");
             }
 
@@ -66,25 +72,30 @@ namespace ServerRequestWebApp.Models
 
             if (userPrincipal.IsAccountLockedOut())
             {
-                // here can be a security related discussion whether it is worth 
-                // revealing this information
                 return new AuthenticationResult("Your account is locked.");
             }
 
             if (userPrincipal.Enabled.HasValue && userPrincipal.Enabled.Value == false)
             {
-                // here can be a security related discussion whether it is worth 
-                // revealing this information
                 return new AuthenticationResult("Your account is disabled");
             }
 
             var identity = CreateIdentity(userPrincipal);
+            GetGroups(principalContext,userPrincipal);
 
             authenticationManager.SignOut(MyAuthentication.ApplicationCookie);
             authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, identity);
 
-
+            MySession.Current.userName = authUser;
+            MySession.Current.IsAdmin = admin;
+            MySession.Current.MyDate = DateTime.Now;
             return new AuthenticationResult();
+
+            }
+            catch (Exception e)
+            {
+                return new AuthenticationResult(e.Message);
+            }
         }
 
         private ClaimsIdentity CreateIdentity(UserPrincipal userPrincipal)
@@ -92,6 +103,8 @@ namespace ServerRequestWebApp.Models
             var identity = new ClaimsIdentity(MyAuthentication.ApplicationCookie, ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             identity.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "Active Directory"));
             identity.AddClaim(new Claim(ClaimTypes.Name, userPrincipal.SamAccountName));
+            authUser = userPrincipal.SamAccountName;
+
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, userPrincipal.SamAccountName));
             if (!String.IsNullOrEmpty(userPrincipal.EmailAddress))
             {
@@ -104,5 +117,48 @@ namespace ServerRequestWebApp.Models
             }
             return identity;
         }
+
+        private void GetGroups(PrincipalContext principalContext, UserPrincipal user)
+        {
+            using (principalContext)
+            {
+                using (user)
+                {
+                    if (user != null)
+                    {
+                        adMembergroups = user.GetGroups()
+                            .Select(x => x.SamAccountName)
+                            .ToArray();
+                    }
+                }
+            }
+            IsAdmin(adMembergroups);
+        }
+
+        private void IsAdmin(string[] userGroups)
+        {
+           
+            if (userGroups != null)
+            {
+                foreach(string group in userGroups)
+                {
+                    if (group.Equals("FormAdmins"))
+                    {
+                        admin = true;
+                        break;
+                    }
+                    else
+                    {
+                        admin = false;
+                    }
+                }
+             
+            }
+            else
+            {
+                admin = false;
+            }
+        }
+
     }
 }

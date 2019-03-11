@@ -1,0 +1,86 @@
+﻿
+@{
+    /**/
+
+    if (User.Identity.IsAuthenticated && ServerRequestWebApp.Models.MySession.Current.IsAdmin == false)
+    {
+        <form method="post" action="@Url.Action("LogOff", "Login")" id="signoutfrm" style="display:none;">
+            @Html.AntiForgeryToken()
+        </form>
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">HEADER</li>
+            <!-- Optionally, you can add icons to the links -->
+            <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
+            <li><a href="#"><i class="fa fa-link"></i> <span>My Account</span></a></li>
+            @*<li class="treeview">
+            <a href="#">
+                <i class="fa fa-link"></i> <span>Requests</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="#">USER SOMETHING</a></li>
+            </ul>
+        </li>*@
+            
+            <li><a href="@Url.Action("ServerRequestForm", "Home")" class="elements"><i class="fa fa-link"></i> <span>Server Requests</span></a></li>
+            <li>
+
+                <a href="" onclick="$('#signoutfrm').submit(); return false;" class="elements">
+                    <i class="fa fa-link"></i>
+                    <span>Sign out</span>
+                </a>
+            </li>
+
+        </ul>
+    }
+
+    else
+    {
+        <form method="post" action="@Url.Action("LogOff", "Login")" id="signoutfrm" style="display:none;">
+            @Html.AntiForgeryToken()
+        </form>
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">HEADER</li>
+            <!-- Optionally, you can add icons to the links -->
+            <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
+            <li><a href="#"><i class="fa fa-link"></i> <span>My Account</span></a></li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-link"></i> <span>Requests</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("ServerRequests", "Home")">Server Requests</a></li>
+                    <li><a href="#">Change Requests</a></li>
+                    <li><a href="#">Push requests to Admin</a></li>
+                </ul>
+            </li>
+
+            <li>
+
+                <a href="" onclick="$('#signoutfrm').submit(); return false;" class="elements">
+                    <i class="fa fa-link"></i>
+                    <span>Sign out</span>
+                </a>
+            </li>
+            @*@using (Html.BeginForm("Logoff", "Login", FormMethod.Post, new { id = "logoutForm", @class = "elements"  /*"btn btn-default btn-flat"*/ }))
+                {
+                <li style="position:relative">
+                    @Html.AntiForgeryToken()
+                    <a href="javascript:document.getElementById('logoutForm').submit()">
+                        <i class="fa fa-link"></i>
+                        <span>Sign out</span>
+                    </a>
+                </li>
+
+                }
+
+                    <li><a href="#"><i class="fa fa-link"></i> <span>Sign out</span></a></li>*@
+        </ul>
+    }
+
+}

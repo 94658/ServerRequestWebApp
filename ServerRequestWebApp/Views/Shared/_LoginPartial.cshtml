@@ -1,22 +1,48 @@
-﻿@if (Request.IsAuthenticated)
+﻿@if (Request.IsAuthenticated )
 {
-    using (Html.BeginForm("Logoff", "Login", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    ServerRequestWebApp.Models.ApplicationDbContext db = new ServerRequestWebApp.Models.ApplicationDbContext();
+   
+    using (Html.BeginForm("Logoff", "Login", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right"  /*"btn btn-default btn-flat"*/ }))
     {
         @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right dropdown">
+        @*<ul class="nav navbar-nav navbar-right dropdown">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">@User.Identity.Name<span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Sign out</a></li>
                 </ul>
             </li>
+        </ul>*@
+        <ul class="dropdown-menu" role="menu">
+            <!-- The user image in the menu -->
+            <li class="user-header">
+                @if (db.UserProfile.Where(m => m.UserName == User.Identity.Name).FirstOrDefault().Gender == "Female")
+                {
+                    <img src="~/dashboard_config/dist/img/female_avatar.jpg" class="img-circle" alt="User Image">
+                }
+                else
+                {
+                    <img src="~/dashboard_config/dist/img/male_avatar.png" class="img-circle" alt="User Image">
+                }
+
+                <p>
+                    @User.Identity.Name
+                    <small>Welcome!</small>
+                </p>
+            </li>
+            <!-- Menu Body -->
+             
+            <li class="user-body"><a href="javascript:document.getElementById('logoutForm').submit()">Sign out</a></li>
+           
+            <!-- Menu Footer-->
+           
         </ul>
     }
 }
-else
+@if(!Request.IsAuthenticated)
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Log in", "Index", "Login", null, new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Log in", "Index", "Login", null, new { id = "loginLink", returnUrl = HttpContext.Current.Request.RawUrl })</li>
     </ul>
 }

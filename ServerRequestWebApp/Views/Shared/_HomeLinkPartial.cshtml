@@ -1,0 +1,28 @@
+﻿@if (Request.IsAuthenticated)
+{
+
+    ServerRequestWebApp.Models.ApplicationDbContext db = new ServerRequestWebApp.Models.ApplicationDbContext();
+    var IsRegistered = db.Users.Where(m => m.UserName == User.Identity.Name).FirstOrDefault();
+    if (IsRegistered != null)
+    {
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        </ul>
+    }
+    else
+    {
+        <ul class="nav navbar-nav">
+            <li><a href="#">Home</a></li>
+        </ul>
+    }
+
+}
+
+@*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
+
+else
+{
+    <ul class="nav navbar-nav">
+        <li><a href="#">Home</a></li>
+    </ul>
+}

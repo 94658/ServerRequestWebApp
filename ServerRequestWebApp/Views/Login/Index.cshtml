@@ -19,6 +19,7 @@
                     <div class="col-md-10">
                         @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                        @ViewBag.ErrorMessage
                     </div>
                 </div>
                 <div class="form-group">
@@ -26,6 +27,7 @@
                     <div class="col-md-10">
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        @ViewBag.ErrorMessage
                     </div>
                 </div>
                 <div class="form-group">

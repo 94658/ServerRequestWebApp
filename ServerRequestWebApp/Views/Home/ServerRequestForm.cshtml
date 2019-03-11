@@ -1,0 +1,38 @@
+﻿@model ServerRequestWebApp.Models.ServerAccessModel
+@{
+    ViewBag.Title = "ServerRequestForm";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+
+<section class="content-header jumbotron">
+    <h1>Server Request Form</h1>
+    @*<p class="lead">This site is only accessible to  Personnel registered to the Craft Silicon domain</p>*@
+    @*<h1>
+            Home
+            <small>Optional description</small>
+        </h1>*@
+</section>
+<!-- Main content -->
+<section class="content container-fluid" style="background-color:gainsboro">
+    <div css="text-align:center;" style="background-color:white"  >
+        <form id="form_login">
+            <div class="form-group group">
+                <input type="text" name="srInput" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+               
+                @Html.LabelFor(m => m.target_server, new { @class = "col-md-2 control-label" })
+            </div>
+
+            <div class="form-group group">
+                <input type="text" name="srInput" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                @Html.LabelFor(m => m.notes, new { @class = "col-md-2 control-label" })
+            </div>
+            <!--form content here-->
+        </form>
+    </div>
+</section>

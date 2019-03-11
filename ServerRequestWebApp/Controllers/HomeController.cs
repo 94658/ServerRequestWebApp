@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServerRequestWebApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,9 @@ namespace ServerRequestWebApp.Controllers
         //[Authorize]
         public ActionResult Index()
         {
+           // TempData["registered"] = false;
             ViewBag.username = User.Identity.Name;
+            
             return View();
         }
 
@@ -33,5 +36,21 @@ namespace ServerRequestWebApp.Controllers
             ViewBag.Test = User.Identity.Name;
             return View();
         }
+
+        [Authorize]
+        public ActionResult ServerRequestForm()
+        {
+
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult ServerRequests()
+        {
+
+            return View();
+        }
+
+
     }
 }
