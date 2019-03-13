@@ -38,8 +38,8 @@ namespace ServerRequestWebApp.Models
             modelBuilder.Entity<ServerAccessModel>().ToTable("tb_ServerAccess");
             modelBuilder.Entity<UserProfileModel>().ToTable("tb_UserProfile");
             modelBuilder.Entity<DepartmentModel>().ToTable("tb_Department");
-            modelBuilder.Entity<UserLogonModel>().ToTable("tb_UserLogon");
-            modelBuilder.Entity<UserLogonModel>().HasKey(t => t.UserProfileId);
+            modelBuilder.Entity<AdminModel>().ToTable("tb_Admins");
+          
             //modelBuilder.Entity<UserProfileModel>().HasRequired(x => x.UserLogons);
             //modelBuilder.Entity<UserLogonModel>().HasRequired<UserProfileModel>(u=>u.UserProfileModel).WithMany(u=>u.UserLogons).HasForeignKey(u=>u.UserProfileId);
             //modelBuilder.Entity<UserProfileModel>().HasRequired(x=>x.UserLogons)
@@ -71,6 +71,7 @@ namespace ServerRequestWebApp.Models
 
         public System.Data.Entity.DbSet<ServerRequestWebApp.Models.UserProfileModel> UserProfile { get; set; }
         public System.Data.Entity.DbSet<ServerRequestWebApp.Models.DepartmentModel> Departments { get; set; }
+        public System.Data.Entity.DbSet<ServerRequestWebApp.Models.AdminModel> Admins { get; set; }
 
     }
 }

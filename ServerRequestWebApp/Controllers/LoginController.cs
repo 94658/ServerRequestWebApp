@@ -52,6 +52,7 @@ namespace ServerRequestWebApp.Controllers
                 //bool userExists = 
                 //var string user = User.Identity.Name;
                 var userExist = db.UserProfile.Where(m => m.UserName == MySession.Current.userName).FirstOrDefault();
+               
                 //MySession.Current.ID = userExist.UserProfileId;
                 if (userExist != null)
                 {
@@ -61,6 +62,7 @@ namespace ServerRequestWebApp.Controllers
                     // return RedirectToAction("Index", "Home" );
                     MySession.Current.IsAdmin= userExist.isAdmin;
                     MySession.Current.ID = userExist.UserProfileId;
+
                     return RedirectToLocal(returnUrl);
 
                 }
@@ -70,7 +72,10 @@ namespace ServerRequestWebApp.Controllers
                     //Session["Username"] = authService.authUser;
                     //TempData["IsAdmin"] = IsAdmin;
                     //Session["IsAdmin"]= IsAdmin;
+                    MySession.Current.userName = User.Identity.Name;
+                    MySession.Current.IsAdmin = authService.admin;
                     ViewBag.UserName = User.Identity.Name;
+                   // RecordLoginInfo();
                     return RedirectToAction("Register");
 
                 }
@@ -87,6 +92,8 @@ namespace ServerRequestWebApp.Controllers
             }
 
         }
+
+        
 
         //ModelState.AddModelError("", authenticationResult.ErrorMessage);
         //return View(model);
@@ -130,14 +137,25 @@ namespace ServerRequestWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(UserProfileModel model, string Department)
         {
-            model.Department = Department;
-            model.CreatedBy = User.Identity.Name; 
-            model.UserName = User.Identity.Name;
-            model.isAdmin = MySession.Current.IsAdmin;
-            model.CreatedOn = DateTime.Now;
-            db.UserProfile.Add(model);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index","Home"); 
+            try
+            {
+                model.Department = Department;
+                model.CreatedBy = User.Identity.Name;
+                model.UserName = User.Identity.Name;
+                model.isAdmin = MySession.Current.IsAdmin;
+                model.CreatedOn = DateTime.Now;
+                db.UserProfile.Add(model);
+                await db.SaveChangesAsync();
+                //    var userExist = db.UserProfile.Where(m => m.UserName == MySession.Current.userName).FirstOrDefault();
+                //     MySession.Current.ID = userExist.UserProfileId;
+                // RecordLoginInfo();
+            }
+            catch (Exception ex)
+            {
+                 
+           }
+
+            return RedirectToAction("Index", "Home");
         }
 
     }

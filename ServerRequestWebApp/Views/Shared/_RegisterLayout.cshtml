@@ -2,87 +2,23 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="~/RegisterForm/images/icons/favicon.ico" />
-    <!--===============================================================================================-->
-    @*<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css  ">*@
-    <link href="~/RegisterForm/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-    @*<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">*@
-    <link href="~/RegisterForm/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-    @*<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">*@
-    <link href="~/RegisterForm/fonts/iconic/css/material-design-iconic-font.min.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-    @* <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">*@
-    <link href="~/RegisterForm/vendor/animate/animate.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-    @*<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">*@
-    <link href="~/RegisterForm/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-    @*<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">*@
-    <link href="~/RegisterForm/vendor/animsition/css/animsition.min.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-    @*<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">*@
-    <link href="~/RegisterForm/vendor/select2/select2.min.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-    @*<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">*@
-    <!--===============================================================================================-->
-    @*<link rel="stylesheet" type="text/css" href="vendor/noui/nouislider.min.css">*@
-    <!--===============================================================================================-->
-   @* <link rel="stylesheet" type="text/css" href="css/util.css">*@
-    <link href="~/RegisterForm/css/util.css" rel="stylesheet" />
-    @*<link rel="stylesheet" type="text/css" href="css/main.css">*@
-    <link href="~/RegisterForm/css/main.css" rel="stylesheet" />
-    <!--===============================================================================================-->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+  
 </head>
 <body>
     <div>
         @RenderBody()
     </div>
-    <!--===============================================================================================-->
-    @*<script src="vendor/jquery/jquery-3.2.1.min.js"></script>*@
-    <script src="~/RegisterForm/vendor/jquery/jquery-3.2.1.min.js"></script>
-    <!--===============================================================================================-->
-   @* <script src="vendor/animsition/js/animsition.min.js"></script>*@
-    <script src="~/RegisterForm/vendor/animsition/js/animsition.min.js"></script>
-    <!--===============================================================================================-->
-   @* <script src="vendor/bootstrap/js/popper.js"></script>*@
-    <script src="~/RegisterForm/vendor/bootstrap/js/popper.js"></script>
-   @* <script src="vendor/bootstrap/js/bootstrap.min.js"></script>*@
-    <script src="~/RegisterForm/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!--===============================================================================================-->
-    @*<script src="vendor/select2/select2.min.js"></script>*@
-    <script src="~/RegisterForm/vendor/select2/select2.min.js"></script>
-    <script>
-		$(".js-select2").each(function(){
-			$(this).select2({
-				minimumResultsForSearch: 20,
-				dropdownParent: $(this).next('.dropDownSelect2')
-			});
 
-
-			$(".js-select2").each(function(){
-				$(this).on('select2:close', function (e){
-					if($(this).val() == "Please chooses") {
-						$('.js-show-service').slideUp();
-					}
-					else {
-						$('.js-show-service').slideUp();
-						$('.js-show-service').slideDown();
-					}
-				});
-			});
-		})
-    </script>
-   
-    <!--===============================================================================================-->
-    @*<script src="js/main.js"></script>*@
-    <script src="~/RegisterForm/js/main.js"></script>
-    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

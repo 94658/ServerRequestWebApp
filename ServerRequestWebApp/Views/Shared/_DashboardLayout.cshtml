@@ -1,4 +1,6 @@
-﻿@model ServerRequestWebApp.Models.UserProfileModel
+﻿@*@model ServerRequestWebApp.Models.UserProfileModel*@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,20 +9,25 @@
     <title>Admin Panel</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-   
     <link href="~/dashboard_config/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/dashboard_config/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" />
     <!-- Font Awesome -->
     <link href="~/dashboard_config/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <!-- Ionicons -->
     <link href="~/dashboard_config/bower_components/Ionicons/css/ionicons.min.css" rel="stylesheet" />
     <!-- Theme style -->
     <link href="~/dashboard_config/dist/css/AdminLTE.min.css" rel="stylesheet" />
-    
+
     <link href="~/dashboard_config/dist/css/skins/skin-blue.min.css" rel="stylesheet" />
-    <link href="~/dashboard_config/dist/css/ServerAccessForm.css" rel="stylesheet" />
+   
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <script type='text/javascript'>
+        $(function () {
+            $('.date-picker').datepicker();
+        })
+    </script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -95,7 +102,14 @@
         </aside>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
+            @if (TempData["UserMessage"] != null)
+            {
+                var message = (ServerRequestWebApp.Controllers.MessageVM)TempData["UserMessage"];
+                <div class="alert @message.CssClassName">
+                    <strong>@message.Title</strong>
+                    @message.Message
+                </div>
+            }
             @RenderBody()
             <!-- /.content -->
         </div>
@@ -105,7 +119,7 @@
             <!-- Default to the left -->
             <strong>
                 Copyright &copy; @@ @DateTime.Now.Year
-                <a href="#">Craft Silicon Limited</a>.
+                <a href="#"> Limited</a>.
             </strong>
         </footer>
     </div>

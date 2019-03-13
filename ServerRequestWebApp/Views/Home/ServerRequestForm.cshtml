@@ -4,35 +4,89 @@
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
+<link href="~/Content/dtp/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Content/dtp/js/jquery.min.js"></script>
+<script src="~/Content/dtp/js/bootstrap-datetimepicker.js"></script>
 
 
-<section class="content-header jumbotron">
-    <h1>Server Request Form</h1>
-    @*<p class="lead">This site is only accessible to  Personnel registered to the Craft Silicon domain</p>*@
-    @*<h1>
-            Home
-            <small>Optional description</small>
-        </h1>*@
+<section class="content-header">
+    <h1>
+        Add a Server Access Request
+    </h1>
 </section>
 <!-- Main content -->
-<section class="content container-fluid" style="background-color:gainsboro">
-    <div css="text-align:center;" style="background-color:white"  >
-        <form id="form_login">
-            <div class="form-group group">
-                <input type="text" name="srInput" required>
-                <span class="highlight"></span>
-                <span class="bar"></span>
-               
-                @Html.LabelFor(m => m.target_server, new { @class = "col-md-2 control-label" })
-            </div>
 
-            <div class="form-group group">
-                <input type="text" name="srInput" required>
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                @Html.LabelFor(m => m.notes, new { @class = "col-md-2 control-label" })
+<section class="content container-fluid">
+    <!-- Horizontal Form -->
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Add Request</h3>
+        </div>
+
+
+        <!-- /.box-header -->
+        <!-- form start -->
+
+        @using (Html.BeginForm("ServerRequestForm", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="box-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Target Server</label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.target_server, htmlAttributes: new { @class = "form-control " })
+                        @Html.ValidationMessageFor(m => m.target_server, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Reason and purpose for Access</label>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(m => m.notes, htmlAttributes: new { @class = "form-control", @id = "basic-textarea", @name = "basic-textarea" })
+                        @Html.ValidationMessageFor(m => m.notes, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Select period of access</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.access_start, htmlAttributes: new { @class = "form-control", @id = "my_dtp" })
+
+                    </div>
+                    <label class="col-md-2 control-label">Select period of access</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.access_end, htmlAttributes: new { @class = "form-control", @id = "my_dtp1" })
+
+                    </div>
+                </div>
+
+                <div class="form-group" style="text-align:center;">
+                    <button type="submit" class="btn btn-default">Cancel</button>
+                    <button type="submit" class="btn btn-info ">Request</button>
+                </div>
             </div>
-            <!--form content here-->
-        </form>
+        }
     </div>
 </section>
+
+
+<script>
+    $('#my_dtp').datetimepicker({
+        minDate: new Date(),
+        format: 'yyyy-mm-dd hh:ii',
+        fontAwesome: true,
+        wheelViewModeNavigation: true
+    })
+    $('#my_dtp').datetimepicker('update', new Date())
+
+    $('#my_dtp1').datetimepicker({
+        minDate: new Date(),
+        format: 'yyyy-mm-dd hh:ii',
+        fontAwesome: true,
+        wheelViewModeNavigation: true
+    })
+   
+    $('#my_dtp1').datetimepicker('update', new Date())
+
+</script>
+

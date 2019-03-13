@@ -36,7 +36,7 @@ namespace ServerRequestWebApp.Models
         public DateTime CreatedOn { get; set; } 
         public bool  isAdmin { get; set; }
         public string Gender { get; set; }
-        public virtual UserLogonModel UserLogons { get; set; }
+      
 
     }
 }

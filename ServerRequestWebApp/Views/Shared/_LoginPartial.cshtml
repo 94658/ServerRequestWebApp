@@ -17,14 +17,18 @@
         <ul class="dropdown-menu" role="menu">
             <!-- The user image in the menu -->
             <li class="user-header">
-                @if (db.UserProfile.Where(m => m.UserName == User.Identity.Name).FirstOrDefault().Gender == "Female")
+                @if (db.UserProfile.Where(m => m.UserName == User.Identity.Name).FirstOrDefault() != null)
                 {
-                    <img src="~/dashboard_config/dist/img/female_avatar.jpg" class="img-circle" alt="User Image">
+                    if (db.UserProfile.Where(m => m.UserName == User.Identity.Name).FirstOrDefault().Gender == "Female")
+                    {
+                        <img src="~/dashboard_config/dist/img/female_avatar.jpg" class="img-circle" alt="User Image">
+                    }
+                    else
+                    {
+                        <img src="~/dashboard_config/dist/img/male_avatar.png" class="img-circle" alt="User Image">
+                    }
                 }
-                else
-                {
-                    <img src="~/dashboard_config/dist/img/male_avatar.png" class="img-circle" alt="User Image">
-                }
+
 
                 <p>
                     @User.Identity.Name

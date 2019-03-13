@@ -1,0 +1,234 @@
+﻿@model IEnumerable<ServerRequestWebApp.Models.ServerAccessModel>
+
+@{
+    ViewBag.Title = "ServerAccessRequests";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        ServerAccessRequests
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("ServerRequests", "Home")"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Server Acccess Requests</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Manage Requests</h3>
+                </div>
+                <div class="box-body">
+                    <p>
+                        @Html.ActionLink("Create New", "Create")
+                    </p>
+                    @*<table class="table">*@
+                   
+                    <table id="example1" class="table table-bordered table-striped">
+                        @if (@ViewBag.isapprover == false)
+                        {
+                            <thead>
+                                <tr>
+
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.target_server)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.access_start)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.access_end)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.notes)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.created_by)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.created_on)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.supervised_by)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.supervised_on)
+                                    </th>
+                                   
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.target_server)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.access_start)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.access_end)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.notes)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.created_by)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.created_on)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.supervised_by)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.supervised_on)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approved_by)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approved_on)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("View", "View", new { id = item.ID }) |
+
+                                        @Html.ActionLink("Approve", "SupervisorApprove", new { id = item.ID }) |
+                                        @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        }
+                        else if (@ViewBag.isapprover == true)
+                        {
+                            <thead>
+                                <tr>
+
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.target_server)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.access_start)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.access_end)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.notes)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.created_by)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.created_on)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.supervised_by)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.supervised_on)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.approved_by)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.approved_on)
+                                    </th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.target_server)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.access_start)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.access_end)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.notes)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.created_by)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.created_on)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.supervised_by)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.supervised_on)
+                                        </td>
+
+                                        <td>
+                                            @Html.ActionLink("View", "Edit", new { id = item.ID }) |
+
+                                            @Html.ActionLink("Approve", "FinalApprove", new { id = item.ID }) |
+                                            @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="~/dashboard_config/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/dashboard_config/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+@*<script>
+   $(function () {
+        $('#example1').DataTable();
+    });
+    function Delete(id){
+        alert(id)
+        var txt;
+        var r = confirm("Are you sure you want to Delete?");
+        if (r == true) {
+            
+            $.ajax(
+            {
+                type: "POST",
+                url: '@Url.Action("Delete", "Doctors")',
+                data: {
+                    id: id
+                },
+                error: function (result) {
+                    alert("error");
+                },
+                success: function (result) {
+                    if (result == true) {
+                        var baseUrl="/Index";
+                        window.location.reload();
+                    }
+                    else {
+                        alert("There is a problem, Try Later!");
+                    }
+                }
+            });
+        } 
+    }
+</script>*@

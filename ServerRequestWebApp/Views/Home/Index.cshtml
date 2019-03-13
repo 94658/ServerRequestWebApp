@@ -1,72 +1,135 @@
 ﻿@model ServerRequestWebApp.Controllers.LoginViewModel
-
 @{
-    /**/
+                /**/
 
-    if (!User.Identity.IsAuthenticated /*|| ServerRequestWebApp.Models.MySession.Current.IsAdmin == false*/)
-    {
-        ViewBag.Title = "Home Page";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-    else if (User.Identity.IsAuthenticated )
-    {
-        ViewBag.Title = "Dashboard";
-        Layout = "~/Views/Shared/_DashboardLayout.cshtml";
-    }
+                /**/
 
-}
-
-
-@if (!User.Identity.IsAuthenticated )
-{
-<div class="container-fluid">
-    <div class="jumbotron">
-        <h1>Welcome @User.Identity.Name</h1>
-        <p class="lead">This site is only accessible to  Personnel registered to the Craft Silicon domain</p>
-        <p>
-
-        </p>
-    </div>
-</div>
+                if (!User.Identity.IsAuthenticated /*|| ServerRequestWebApp.Models.MySession.Current.IsAdmin == false*/)
+                {
+                    ViewBag.Title = "Home Page";
+                    Layout = "~/Views/Shared/_Layout.cshtml";
+                }
+                else if (User.Identity.IsAuthenticated)
+                {
+                    ViewBag.Title = "Dashboard";
+                    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+                }
 
 }
 
-@if (User.Identity.IsAuthenticated)
+
+@if (!User.Identity.IsAuthenticated)
 {
-    @*<div class="row">
-        <div class="col-md-4">
-            <h2>Access Server Access Forms</h2>
+    <div class="container-fluid">
+        <div class="jumbotron">
+            <h1>Welcome </h1>
+            <p class="lead">This site is only accessible to  Personnel registered to the Craft Silicon domain</p>
             <p>
-                This page is restricted to users in role "Users" in the domain.
+
             </p>
-            <p>@Html.ActionLink("Only For Users", "OnlyForUsers", "Home", new { @class = "btn btn-default" })</p>
         </div>
-        <div class="col-md-4">
-            <h2>Change Request Forms</h2>
-            <p>To access change request forms</p>
-            <p>@Html.ActionLink("Never Get There", "ForNonExistingRole", "Home", new { @class = "btn btn-default" })</p>
-        </div>
-        <div class="col-md-4">
-            <h2>My Account</h2>
-            <p>Here is the list of resulting claims on the cookie.</p>
-            <p>@Html.ActionLink("My Claims", "MyClaims", "Home", new { @class = "btn btn-default" })</p>
-        </div>
-    </div>*@
+    </div>
+
+}
+
+@if (User.Identity.IsAuthenticated && ServerRequestWebApp.Models.MySession.Current.IsAdmin == true)
+{
+
 
     <section class="content-header">
         <h1>Welcome @User.Identity.Name</h1>
         <p class="lead">This site is only accessible to  Personnel registered to the Craft Silicon domain</p>
+
         @*<h1>
-            Home
-            <small>Optional description</small>
-        </h1>*@
+                Home
+                <small>Optional description</small>
+            </h1>*@
     </section>
     <!-- Main content -->
     <section class="content container-fluid">
-        <div>
-            
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Requests</span>
+                        <span class="info-box-number">@ViewBag.requests</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-clock-o"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Pending Requests</span>
+                        <span class="info-box-number">@ViewBag.pending</span>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </section>
 
+}
+
+@if (User.Identity.IsAuthenticated && ServerRequestWebApp.Models.MySession.Current.IsAdmin == false)
+{
+    <section class="content-header">
+        <h1>Welcome @User.Identity.Name </h1>
+        <p class="lead">This site is only accessible to  Personnel registered to the Craft Silicon domain</p>
+       
+    </section>
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Your Requests</span>
+                        <span class="info-box-number">
+                            @ViewBag.requestsmade
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-green"><i class="fa fa-check"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Approved Requests</span>
+                        <span class="info-box-number">@ViewBag.approvedrequests</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-clock-o"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Pending Requests</span>
+                        <span class="info-box-number">@ViewBag.pendingrequests</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-red"><i class="fa fa-ban"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Denied Requests</span>
+                        <span class="info-box-number">@ViewBag.rejectedrequests</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
 }
 
